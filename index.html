@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<title>Temperature Converter</title>
+</head>
+
+
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        background-image: url('https://img.freepik.com/premium-photo/thermometer-background-sun-3d-rendering_96743-13.jpg'); /* Replace with your image URL */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+   
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-container {
+    margin-bottom: 25px;
+    
+}
+
+#fromUnit,
+#toUnit {
+    
+    margin-bottom: 25px;
+}
+
+
+label {
+    font-weight: bold;
+}
+
+select, input {
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+conversion-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.result-container {
+    margin-top: 10px;
+}
+
+
+    
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <div class="input-container">
+            <label for="temperature">Enter Temperature:</label>
+            <input type="number" id="temperature" placeholder="Enter temperature..." step="0.01">
+        </div>
+        <div class="conversion-container">
+            <label for="fromUnit">From:</label>
+            <select id="fromUnit">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select>
+            <label for="toUnit">To:</label>
+            <select id="toUnit">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select>
+        </div>
+        <button id="convertBtn">Convert</button>
+        <div class="result-container">
+            <p id="result"></p>
+        </div>
+    </div>
+<script>
+    document.getElementById('convertBtn').addEventListener('click', function() {
+    const temperature = parseFloat(document.getElementById('temperature').value);
+    const fromUnit = document.getElementById('fromUnit').value;
+    const toUnit = document.getElementById('toUnit').value;
+
+    let convertedTemperature;
+
+    if (fromUnit === 'celsius') {
+        if (toUnit === 'fahrenheit') {
+            convertedTemperature = (temperature * 9/5) + 32;
+        } else if (toUnit === 'kelvin') {
+            convertedTemperature = temperature + 273.15;
+        } else {
+            convertedTemperature = temperature;
+        }
+    } else if (fromUnit === 'fahrenheit') {
+        if (toUnit === 'celsius') {
+            convertedTemperature = (temperature - 32) * 5/9;
+        } else if (toUnit === 'kelvin') {
+            convertedTemperature = (temperature - 32) * 5/9 + 273.15;
+        } else {
+            convertedTemperature = temperature;
+        }
+    } else if (fromUnit === 'kelvin') {
+        if (toUnit === 'celsius') {
+            convertedTemperature = temperature - 273.15;
+        } else if (toUnit === 'fahrenheit') {
+            convertedTemperature = (temperature - 273.15) * 9/5 + 32;
+        } else {
+            convertedTemperature = temperature;
+        }
+    }
+
+    const resultElement = document.getElementById('result');
+    resultElement.textContent = `Converted Temperature: ${convertedTemperature.toFixed(2)} ${toUnit}`;
+});
+
+</script>
+</body>
+</html>
